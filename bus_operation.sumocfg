@@ -1,0 +1,17 @@
+<configuration>
+	<input>
+		<net-file value="bus_operation.net.xml"/>
+		<route-files value="bus_operation_VC_0.5_flow.rou.xml"/>
+		<additional-files value="bus_operation.add.xml"/>
+	</input>
+	<output>
+        <battery-output value="bus_operation_Battery.out.xml"/>
+        <battery-output.precision value="4"/>
+        <device.battery.probability value="1"/>
+        <summary-output value="summary_100.xml"/>
+    </output>
+	<time>
+		<begin value="0"/>
+		<end value="7200"/>
+	</time>
+</configuration>

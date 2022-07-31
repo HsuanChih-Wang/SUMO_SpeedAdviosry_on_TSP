@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<turns>
+   <interval begin="0" end="7200">
+	
+      <fromEdge id="C1E1">
+         <toEdge id="C3" probability="0.7"/>
+         <toEdge id="E2N1" probability="0.1"/>
+         <toEdge id="C2S1" probability="0.2"/>
+      </fromEdge>
+	  <fromEdge id="C2C3">
+         <toEdge id="C3C4" probability="0.7"/>
+         <toEdge id="C3N2" probability="0.1"/>
+         <toEdge id="C3S2" probability="0.2"/>
+      </fromEdge>
+	  <fromEdge id="C3C4">
+         <toEdge id="C4C5" probability="0.7"/>
+         <toEdge id="C4N3" probability="0.1"/>
+         <toEdge id="C4S3" probability="0.2"/>
+      </fromEdge>
+	  <fromEdge id="C4C5">
+         <toEdge id="C5C6" probability="0.7"/>
+         <toEdge id="C5N4" probability="0.1"/>
+         <toEdge id="C5S4" probability="0.2"/>
+      </fromEdge>
+	  <!--由右至左-->
+	  <fromEdge id="C6C5">
+         <toEdge id="C5C4" probability="0.7"/>
+         <toEdge id="C5S4" probability="0.1"/>
+         <toEdge id="C5N4" probability="0.2"/>
+      </fromEdge>
+	  <fromEdge id="C5C4">
+         <toEdge id="C4C3" probability="0.7"/>
+         <toEdge id="C4S3" probability="0.1"/>
+         <toEdge id="C4N3" probability="0.2"/>
+      </fromEdge>
+	  <fromEdge id="C4C3">
+         <toEdge id="C3C2" probability="0.7"/>
+         <toEdge id="C3S2" probability="0.1"/>
+         <toEdge id="C3N2" probability="0.2"/>
+      </fromEdge>
+	  <fromEdge id="C3C2">
+         <toEdge id="C2C1" probability="0.7"/>
+         <toEdge id="C2S1" probability="0.1"/>
+         <toEdge id="C2N1" probability="0.2"/>
+      </fromEdge>
+	  
+	  <!--由南往北-->
+	  
+	  <fromEdge id="S1C2">
+         <toEdge id="C2C1" probability="0.3"/> <!--左-->
+         <toEdge id="C2C3" probability="0.3"/> <!--右-->
+         <toEdge id="C2N1" probability="0.4"/> <!--直-->
+      </fromEdge>
+	  <fromEdge id="S2C3">
+         <toEdge id="C3C2" probability="0.3"/>
+         <toEdge id="C3C4" probability="0.3"/>
+         <toEdge id="C3N2" probability="0.4"/>
+      </fromEdge>
+	  <fromEdge id="S3C4">
+         <toEdge id="C4C3" probability="0.3"/>
+         <toEdge id="C4C5" probability="0.3"/>
+         <toEdge id="C4N3" probability="0.4"/>
+      </fromEdge>
+	  <fromEdge id="S4C5">
+         <toEdge id="C5C4" probability="0.3"/>
+         <toEdge id="C5C6" probability="0.3"/>
+         <toEdge id="C5N4" probability="0.4"/>
+      </fromEdge>
+	  
+	  <!--由北往南-->
+	  
+	  <fromEdge id="N4C5">
+         <toEdge id="C5C6" probability="0.3"/>
+         <toEdge id="C5C4" probability="0.3"/>
+         <toEdge id="C5S4" probability="0.4"/>
+      </fromEdge>
+	  <fromEdge id="N3C4">
+         <toEdge id="C4C5" probability="0.3"/>
+         <toEdge id="C4C3" probability="0.3"/>
+         <toEdge id="C4S3" probability="0.4"/>
+      </fromEdge>
+	  <fromEdge id="N2C3">
+         <toEdge id="C3C4" probability="0.3"/>
+         <toEdge id="C3C2" probability="0.3"/>
+         <toEdge id="C3S2" probability="0.4"/>
+      </fromEdge>
+	  <fromEdge id="N1C2">
+         <toEdge id="C2C3" probability="0.3"/>
+         <toEdge id="C2C1" probability="0.3"/>
+         <toEdge id="C2S1" probability="0.4"/>
+      </fromEdge>
+	  
+	  
+   </interval>
+   
+   <sink edges="C5S4"/>
+   <sink edges="C5C6"/>
+   <sink edges="C5N4"/>
+   <sink edges="C4S3"/>
+   <sink edges="C4N3"/>
+   <sink edges="C3S2"/>
+   <sink edges="C3N2"/>
+   <sink edges="C2S1"/>
+   <sink edges="C2N1"/>
+   <sink edges="C2C1"/>
+
+</turns>

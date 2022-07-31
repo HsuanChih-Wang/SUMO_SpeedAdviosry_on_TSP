@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+	<vType id="Auto" length="4.0" accel="2.9" decel="7.5" maxSpeed="20"/>
+	<vType id="ElectricBus" vClass="bus" accel="1.0" decel="1.0" lenght="12" maxSpeed="20.0" sigma="0.0" minGap="2.5" emissionClass="Energy/unknown" color="1,1,1">
+        <param key="has.battery.device" value="true"/>
+        <param key="maximumBatteryCapacity" value="140000"/>
+        <param key="maximumPower" value="1000"/>
+        <param key="vehicleMass" value="18000"/>
+        <param key="frontSurfaceArea" value="5"/>
+        <param key="airDragCoefficient" value="0.6"/>
+        <param key="internalMomentOfInertia" value="0.01"/>
+        <param key="radialDragCoefficient" value="0.5"/>
+        <param key="rollDragCoefficient" value="0.01"/>
+        <param key="constantPowerIntake" value="200"/>  <!-- Avg. (constant) power of consumers -->
+        <param key="propulsionEfficiency" value="0.9"/>
+        <param key="recuperationEfficiency" value="0.9"/>
+        <param key="stoppingTreshold" value="0.1"/>
+    </vType>
+	
+	<!-- <vType id="Bus" vClass="bus" length="8.5" accel="1.2" decel="4.0" maxSpeed="20"/> -->
+
+	<!--幹道車-->
+	<flow id="Phase1THR_flow" type="Auto" beg="0" end="7200" vehsPerHour="272" color="1,1,0" from="N1E2" to="E4C4"/>
+	<flow id="Phase1Right_flow" type="Auto" beg="0" end="7200" vehsPerHour="23" color="1,1,0" from="N1E2" to="E1C1"/>
+
+	<flow id="Phase2_flow" type="Auto" beg="0" end="7200" vehsPerHour="81" color="1,1,0" from="C4E4" to="E1C1"/>
+	
+	<flow id="Phase3THR_flow" type="Auto" beg="0" end="7200" vehsPerHour="407" color="1,1,0" from="C1E1" to="E3J2"/>
+	<flow id="Phase3Right_flow" type="Auto" beg="0" end="7200" vehsPerHour="65" color="1,1,0" from="C1E1" to="E4C4"/>
+
+	<flow id="Phase4_flow" type="Auto" beg="0" end="7200" vehsPerHour="66" color="1,1,0" from="J2E3" to="E4C4"/>
+	
+	<flow id="Phase5THR_flow" type="Auto" beg="0" end="7200" vehsPerHour="265" color="1,1,0" from="C4E4" to="E2N1"/>	
+	<flow id="Phase5Right_flow" type="Auto" beg="0" end="7200" vehsPerHour="41" color="1,1,0" from="C4E4" to="E3J2"/>	
+
+	<flow id="Phase6_flow" type="Auto" beg="0" end="7200" vehsPerHour="42" color="1,1,0" from="N1E2" to="E3J2"/>
+	
+	<flow id="Phase7THR_flow" type="Auto" beg="0" end="7200" vehsPerHour="574" color="1,1,0" from="J2E3" to="E1C1"/>
+	<flow id="Phase7Right_flow" type="Auto" beg="0" end="7200" vehsPerHour="40" color="1,1,0" from="J2E3" to="E2N1"/>
+	
+	<flow id="Phase8_flow" type="Auto" beg="0" end="7200" vehsPerHour="28" color="1,1,0" from="C1E1" to="E2N1"/>
+	
+	
+	<flow id="Bus_East" type="ElectricBus" begin="0" end="7200" period="1200" color="1,1,1" departLane="0">
+		<route edges="C1E1 E1I1 I1E3 E3J2"/>
+		<param key="actualBatteryCapacity" value="100000"/>
+	</flow> 
+	
+	
+	<flow id="Bus_West" type="ElectricBus" begin="0" end="7200" period="900" color="1,1,1" departLane="0">
+		<route edges="J2E3 E3I1 I1E1 E1C1"/>
+		<param key="actualBatteryCapacity" value="100000"/>
+	</flow> 
+
+	<!--
+	<flow id="Bus_North" type="Bus" begin="0" end="7200" period="300" color="1,1,1" departLane="1">
+		<route edges="C4E4 E4I1 I1E2 E2N1"/>
+	</flow> -->
+	
+	<!--
+	<flow id="Bus_South" type="Bus" begin="0" end="7200" period="450" color="1,1,1" departLane="1">
+		<route edges="N1E2 E2I1 I1E3 E3J2"/>
+	</flow> -->
+
+</routes>
