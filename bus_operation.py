@@ -3,19 +3,12 @@ import os
 import sys
 import optparse
 
+from modules import SignalPlanObject
+from modules import BusRSU
+from modules import BusOBU
 
-#from thesis import PhaseObject
-# from thesis import RSUObject
-from thesis import SignalPlanObject
-# from thesis import OBUObject
-# from thesis import SignalOptModule
-
-from bus_operation_course import BusRSU
-from bus_operation_course import BusOBU
-
-# C:\Users\WangRabbit\AppData\Local\Programs\Python\Python37\Lib\thesis
-
-from scipy import stats
+from sumolib import checkBinary  # Checks for the binary in environ vars
+import traci
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -24,10 +17,6 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-from sumolib import checkBinary  # Checks for the binary in environ vars
-import traci
-
-
 def get_options():
     opt_parser = optparse.OptionParser()
     opt_parser.add_option("--nogui", action="store_true",
@@ -35,20 +24,15 @@ def get_options():
     options, args = opt_parser.parse_args()
     return options
 
-# 有安裝OBU車輛列表
 OBU_Dict = {}
-
-# 路口資料
 RSUs = dict()
 signalOPTs = dict()
 
 planHorizon = [0, 1]
 
 def setPhaseObject(i, inputPlan):
-    #I = RSU物件
-    #signalPlan =
 
-    signalPlan = SignalPlanObject.SignalPlan() # 實體化
+    signalPlan = SignalPlanObject.SignalPlan()
 
     J1 = SignalPlanObject.Phase(phaseID='J1', phaseOrder=0, startTime=inputPlan[1][0], green=inputPlan[0][0], yellow=3, allRed=2, Gmax=200, Gmin=0)
     J2 = SignalPlanObject.Phase(phaseID='J2', phaseOrder=1, startTime=inputPlan[1][1], green=inputPlan[0][1], yellow=3, allRed=2, Gmax=200, Gmin=0)
@@ -63,10 +47,9 @@ def setPhaseObject(i, inputPlan):
 
     signalPlan.setAllParameters(planID='0', order='00', offset=0, cycle=CYCLE, phases={"J1": J1, "J2": J2, "J3": J3, "J4": J4,
                                                                                          "J5": J5, "J6": J6, "J7": J7, "J8": J8})
-
     print("signalPlan = ", signalPlan)
 
-    i.addPlan(signalPlan)  # 設定RSU.plan
+    i.addPlan(signalPlan)
 
 
 def initialization():
@@ -77,14 +60,6 @@ def initialization():
     print(RSUs['I1'].RSU_ID)
     print(RSUs['I1'].location)
 
-    # Plan1 = [[19, 10, 38, 8, 19, 10, 38, 8], [0, 24, 39, 82, 0, 24, 39, 82]]
-    # Plan2 = [[19, 10, 38, 8, 19, 10, 38, 8], [95, 119, 134, 177, 95, 119, 134, 177]]
-    # originalPlan = [[19, 10, 38, 8, 19, 10, 38, 8], [0, 24, 39, 82, 0, 24, 39, 82]]
-
-    # Plan1 = [[34, 11, 43, 7, 34, 11, 43, 7], [0, 39, 55, 103, 0, 39, 55, 103]]
-    # Plan2 = [[34, 11, 43, 7, 34, 11, 43, 7], [115, 154, 170, 218, 115, 154, 170, 218]]
-    # originalPlan = [[34, 11, 43, 7, 34, 11, 43, 7], [0, 39, 55, 103, 0, 39, 55, 103]]
-
     Plan1 = [[34, 11, 43, 12, 34, 11, 43, 12], [0, 39, 55, 103, 0, 39, 55, 103]]
     Plan2 = [[34, 11, 43, 12, 34, 11, 43, 12], [120, 159, 175, 223, 120, 159, 175, 223]]
     originalPlan = [[34, 11, 43, 7, 34, 11, 43, 12], [0, 39, 55, 103, 0, 39, 55, 103]]
@@ -94,7 +69,6 @@ def initialization():
         setPhaseObject(RSUs[rsu], Plan2)
         setPhaseObject(RSUs[rsu], originalPlan)
         RSUs[rsu].setOriginalPlan()
-
 
 # contains TraCI control loop
 def run():
