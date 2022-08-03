@@ -5,7 +5,7 @@
 * Website: https://wangtechlab.com/
 * Feel free to contact the author if you have any question!
 
-![image](https://user-images.githubusercontent.com/53686476/182598148-bf3c5f1f-f959-496f-bb0c-6ff514c36e9f.png)
+![image](https://user-images.githubusercontent.com/53686476/182598526-be3df643-68a6-4fb2-a085-92bb9d9bdcfa.png)
 
 
 ## Introduction
