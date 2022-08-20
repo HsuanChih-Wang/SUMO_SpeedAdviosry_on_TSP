@@ -13,13 +13,13 @@ intersectionList = ['I1']
 # free flow speed
 Vf = 12
 
-# 號誌參數
+# Signal Parameters
 M = 9999999
 GREEN_EXTENT_LIMIT = 10
 RED_TRUNCATION_LIMIT = 10
 PASS_PROB_THRESHOLD = 0.8
 
-#公車參數
+# Bus parameters
 BUS_ACTIVATION_SPEED_THRESHOLD = 5
 
 
@@ -54,10 +54,9 @@ class BusRSU(RSUObject.RSU):
         nowPhase = traci.trafficlight.getPhase('I1')
         nowProgramLogic = traci.trafficlight.getAllProgramLogics('I1')
         if (nowPhase in (11,23) and self.flag == True):
-            #該週期已結束
+            #The cycle ends
             for phase in nowProgramLogic[0].phases:
                 phaseDuration = phase.duration
-                # 累計新增該週期時間
                 self.CycleAccumulated = self.CycleAccumulated + phaseDuration
             self.flag = False
 
@@ -69,32 +68,28 @@ class BusRSU(RSUObject.RSU):
 
     # override
     def calPhaseTimeSplit(self, targetPhase):
+        '''Argument description
+        targetPhase => The phase number that is used for calculation (string)
+       '''
+        phaseTimeSplit = []
 
-        # 引數說明：
-        # 1. targetIntersection: 要計算的路口編號(str)
-        # 2. plan: 傳入該路口完整計畫內容(plan)(包含k和k+1週期)
-        # 3. targetPhase: 指定要計算的phase編號(str)
-        # 路口完整計畫內容(plan)支援格式: [{j:Phase() for j in ['J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8']},
-        #                           {j:Phase() for j in ['J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8']}]
-
-        phaseTimeSplit = []  # 紀錄時相切割時間點
-
-        # 確認時相是否為起頭時相
-        if targetPhase in ['J1', 'J5']:  # 時相編號為1或5是週期起頭時相
+        # Check if the targetphase is the head phase (J1, J5)
+        if targetPhase in ['J1', 'J5']:
             IsHeadPhase = True
-            # 起頭時相 phaseSplit = [(0) 紅燈起始, (1) 紅燈結束, (2)紅燈起始,..., (n)紅燈結束]
+            # HeadPhase phaseSplit = [(0) Red starts, (1) Red ends, (2)Red starts,..., (n)Red ends]
 
-            #### 計算週期K ####
+            #### Calculation cycle K ####
             # Expect: plan[0][targetPhase].startTime = 0
             targetPhaseEndTime = self.plan[0].phases[targetPhase].startTime + self.plan[0].phases[targetPhase].green
-            phaseTimeSplit.append(targetPhaseEndTime)  # 加入 時相結束時間 = (0) 紅燈起始
+            phaseTimeSplit.append(targetPhaseEndTime)  # Add: The ending time of the phase = (0) Red starts.
 
-            #### 計算週期K+1 ####
-            targetPhaseStartTime = self.plan[1].phases[targetPhase].startTime  # 加入 時相起始時間 = (1) 紅燈結束
+            #### Calculation cycle K+1 ####
+            targetPhaseStartTime = self.plan[1].phases[targetPhase].startTime  # Add: The starting time of the phase = (1) Red ends
             phaseTimeSplit.append(targetPhaseStartTime)
-            phaseTimeSplit.append(targetPhaseStartTime + self.plan[1].phases[targetPhase].green)  #加入 時相結束時間 = (2) 紅燈起始
+            phaseTimeSplit.append(targetPhaseStartTime + self.plan[1].phases[targetPhase].green)
+            #Add: The end of the phase = (2) Red starts
 
-            #### 計算週期K+n ####
+            #### Calculation K+n ####
             cycle = self.plan[2].cycle
 
             for num in range(2, 5):  # 這裡修改可設定一次產生幾個週期(k+2 k+3...)後的時間
