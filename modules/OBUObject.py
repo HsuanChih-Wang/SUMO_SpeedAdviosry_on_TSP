@@ -1,6 +1,5 @@
 import traci
 import math
-import thesis.PhaseObject as PhaseObject
 from scipy.stats import norm
 
 # !!!! 多路口記得檢查修改 !!!!!
